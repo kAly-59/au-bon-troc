@@ -6,7 +6,7 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Get('Names')
-  getProductNames(): string[] {
-    return this.productService.getArticleNames();
+  getProductsNames(): string[] {
+    return this.productService.getProductsNames();
   }
 }
