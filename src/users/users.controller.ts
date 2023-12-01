@@ -19,7 +19,8 @@ export class UsersController {
 
   @Get(':uuid')
   public getByUUID
-  (@Param('uuid') uuid: string) {
+  (@Param('uuid') uuid: string) 
+  {
     return this.usersService.getByUUID(uuid);
   }
 
@@ -31,9 +32,11 @@ export class UsersController {
     return this.usersService.updateByUUID(uuid, updateUserDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  @Delete(':uuid')
+  public deleteByUUID
+  (@Param('uuid') uuid: string) 
+  {
+    return this.usersService.deleteByUUID(uuid);
   }
 }
 
