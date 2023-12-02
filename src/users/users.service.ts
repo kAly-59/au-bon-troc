@@ -1,13 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { PrismaService } from '../prisma.service';
-import NormalizedResponse from "../utils/normalized-response";
-
+import { PrismaService } from 'src/prisma.service';
+import NormalizedResponse from 'src/utils/normalized-response';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   public async create(createUserDto: CreateUserDto) {
     const createdUser = new NormalizedResponse(
@@ -39,17 +38,17 @@ export class UsersService {
   }
 
   public async updateByUUID(uuid: string, updateUserDto: UpdateUserDto) {
-    const updatedUser =  new NormalizedResponse(
-      `User ${uuid} has been updated`,
-    await this.prisma.users.update({
-      where: {
-        UUID: uuid,
-      },
-      data: {
-        Pseudo: !! updateUserDto.pseudo ? updateUserDto.pseudo : undefined,
-        Mail: !! updateUserDto.mail ? updateUserDto.mail : undefined,
-      },
-    }),
+    const updatedUser = new NormalizedResponse(
+      `User ${updateUserDto.pseudo} has been updated`,
+      await this.prisma.users.update({
+        where: {
+          UUID: uuid,
+        },
+        data: {
+          Pseudo: !!updateUserDto.pseudo ? updateUserDto.pseudo : undefined,
+          Mail: !!updateUserDto.mail ? updateUserDto.mail : undefined,
+        },
+      }),
     );
     return updatedUser.toJSON();
   }
@@ -57,14 +56,12 @@ export class UsersService {
   public async deleteByUUID(uuid: string) {
     const deletedUser = new NormalizedResponse(
       `User ${uuid} has been deleted`,
-    await this.prisma.users.delete({
-      where: {
-        UUID: uuid,
-      },
-    }),
+      await this.prisma.users.delete({
+        where: {
+          UUID: uuid,
+        },
+      }),
     );
     return deletedUser.toJSON();
   }
 }
-
-
