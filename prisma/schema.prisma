@@ -1,10 +1,13 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("DB_URL")
 }
 
 model Products {
@@ -20,5 +23,7 @@ model Users {
   UUID     String     @id(map: "users_uuid") @unique() @default(uuid()) @db.VarChar(36) //UUIDv4
   Pseudo   String     @unique() @db.VarChar(50)
   Mail     String     @unique() @db.VarChar(75)
+  username String     @unique() @db.VarChar(75)
+  password String     @db.VarChar(72) //72 length is max brycpt encoded value
   Products Products[]
 }
