@@ -6,18 +6,23 @@ import NormalizedResponse from 'src/utils/normalized-response';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly prisma: PrismaService) {}
+
+  constructor(private readonly prisma: PrismaService) { }
 
   public async create(createUserDto: CreateUserDto) {
+
     const createdUser = new NormalizedResponse(
       `User ${createUserDto.pseudo} has been created`,
       await this.prisma.users.create({
         data: {
           Pseudo: createUserDto.pseudo,
           Mail: createUserDto.mail,
-        },
-      }),
+          username: createUserDto.pseudo,
+          password: createUserDto.password,
+        }
+      })
     );
+
     return createdUser.toJSON();
   }
 
@@ -65,3 +70,4 @@ export class UsersService {
     return deletedUser.toJSON();
   }
 }
+

@@ -14,6 +14,8 @@ CREATE TABLE "Users" (
     "UUID" VARCHAR(36) NOT NULL,
     "Pseudo" VARCHAR(50) NOT NULL,
     "Mail" VARCHAR(75) NOT NULL,
+    "username" VARCHAR(75) NOT NULL,
+    "password" VARCHAR(72) NOT NULL,
 
     CONSTRAINT "users_uuid" PRIMARY KEY ("UUID")
 );
@@ -29,6 +31,9 @@ CREATE UNIQUE INDEX "Users_Pseudo_key" ON "Users"("Pseudo");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Users_Mail_key" ON "Users"("Mail");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Users_username_key" ON "Users"("username");
 
 -- AddForeignKey
 ALTER TABLE "Products" ADD CONSTRAINT "product_author" FOREIGN KEY ("authorUUID") REFERENCES "Users"("UUID") ON DELETE RESTRICT ON UPDATE CASCADE;
